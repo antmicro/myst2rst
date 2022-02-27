@@ -22,10 +22,8 @@ import logging
 from docutils import nodes, writers
 from docutils.nodes import fully_normalize_name
 
-from sphinx import addnodes
-from sphinx.locale import admonitionlabels, _
-from sphinx.writers.text import MAXWIDTH, STDINDENT
-
+MAXWIDTH=70
+STDINDENT=3
 
 def escape_uri(uri):
     if uri.endswith('_'):
@@ -601,7 +599,7 @@ class RstTranslator(nodes.NodeVisitor):
         self.new_state(self.indent)
     def _make_depart_admonition(name):
         def depart_admonition(self, node):
-            self.end_state(first=admonitionlabels[name] + ': ')
+            self.end_state(first=name.capitalize() + ': ')
         return depart_admonition
 
     visit_attention = _visit_admonition
@@ -683,12 +681,10 @@ class RstTranslator(nodes.NodeVisitor):
         self.depart_paragraph(node)
 
     def visit_paragraph(self, node):
-        if not isinstance(node.parent, nodes.Admonition) or \
-               isinstance(node.parent, addnodes.seealso):
+        if not isinstance(node.parent, nodes.Admonition):
             self.new_state(0)
     def depart_paragraph(self, node):
-        if not isinstance(node.parent, nodes.Admonition) or \
-               isinstance(node.parent, addnodes.seealso):
+        if not isinstance(node.parent, nodes.Admonition):
             self.end_state()
 
     def visit_target(self, node):
