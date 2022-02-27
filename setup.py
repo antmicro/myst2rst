@@ -10,5 +10,7 @@ setup(name='myst2rst',
           'docutils', 'myst-docutils'
       ],
       license='MIT',
-      scripts=['bin/myst2rst'],
+      entry_points={
+          'console_scripts': ['myst2rst=myst2rst:main'],
+      },
       packages=['myst2rst'])
