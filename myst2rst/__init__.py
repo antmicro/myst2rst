@@ -5,7 +5,7 @@ from myst_parser.docutils_ import Parser
 from docutils_rst_writer import RstWriter
 import sys
 
-def main()
+def main():
 
     writer = RstWriter()
 
