@@ -9,6 +9,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
     - name: Install build tools
       run: |
         sudo apt -qqy update && sudo apt -qqy install patchelf build-essential python3-pip git zlib1g-dev python3-setuptools python3-venv python3-wheel
