@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-static:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install build tools
+      run: |
+        sudo apt -qqy update && sudo apt -qqy install patchelf build-essential python3-pip git zlib1g-dev python3-setuptools python3-venv python3-wheel
+        git clone https://github.com/pyinstaller/pyinstaller.git
+        cd pyinstaller/bootloader && CC="gcc -no-pie" python3 waf configure all && cd -
+        cd pyinstaller && sudo python3 setup.py install && cd -
+        sudo pip3 install staticx
+    - name: Install dependencies
+      run: python setup.py egg_info && pip3 install -r *.egg-info/requires.txt
+    - name: Build static binary
+      run: |
+        pyinstaller -F myst2rst/__init__.py -n myst2rst
+        staticx dist/myst2rst myst2rst_static
+    - uses: actions/upload-artifact@v2
+      with:
+        name: myst2rst_static
+        path: myst2rst_static
