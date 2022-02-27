@@ -21,3 +21,6 @@ def main()
     )
     text = output.decode('utf-8')
     print(text)
+
+if __name__ == "__main__":
+    main()
