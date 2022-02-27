@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-# fix for local imports when run as script
-if __name__ == '__main__' and __package__ is None:
-    __package__ = 'myst2rst'
-
 from docutils.core import publish_string
 from myst_parser.docutils_ import Parser
-from .docutils_rst_writer import RstWriter
+from docutils_rst_writer import RstWriter
 import sys
 
 def main():

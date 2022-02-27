@@ -13,4 +13,4 @@ setup(name='myst2rst',
       entry_points={
           'console_scripts': ['myst2rst=myst2rst:main'],
       },
-      packages=['myst2rst'])
+      packages=['myst2rst','docutils_rst_writer'])
