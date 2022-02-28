@@ -838,7 +838,11 @@ class RstTranslator(nodes.NodeVisitor):
         raise nodes.SkipNode
 
     def visit_comment(self, node):
-        raise nodes.SkipNode
+        self.new_state(0)
+        self.add_text(".. ")
+
+    def depart_comment(self, node):
+        self.end_state(wrap=False)
 
     def visit_meta(self, node):
         # only valid for HTML
