@@ -406,6 +406,10 @@ class RstTranslator(nodes.NodeVisitor):
         self.table[-1].append(text)
 
     def visit_table(self, node):
+        # this should most likely be moved to a more general place!
+        classes = node.get('classes', [])
+        if len(classes) > 0:
+            self.add_text(f".. class:: {' '.join(classes)}")
         if self.table:
             self.log_warning('Nested tables are not supported.')
         self.new_state(0)
